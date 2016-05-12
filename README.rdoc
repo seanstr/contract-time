@@ -6,14 +6,14 @@ I still use this application to track my time and generate invoices, but much of
 
 Having said that, I like the way time can be entered. You can type in something like this:
 
-July 1, 2016
- 9-10, #prj1, Completed task
- -12, #prj2, Meeting
+ July 1, 2016
+  9-10, #prj1, Completed task
+  -12, #prj2, Meeting
 
-July 2, 2016
-  .
-  .
-  .
+ July 2, 2016
+   .
+   .
+   .
  
 The app can parse the times, translate the hashtag and create a normal time entry.  It understands that indented lines are time ranges for the date entered above, and if the line starts with a '-' then take the end time of the previous line.  This resulted in very little time spent entering the data. I tend to track my time in EverNote, then weekly update the time in ContractTime.
 

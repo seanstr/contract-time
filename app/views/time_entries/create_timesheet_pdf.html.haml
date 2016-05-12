@@ -1,0 +1,56 @@
+%h1
+  = @title1
+%h3
+  Client: 
+  = @client.name
+%h3
+  Consultant: 
+  = @consultant.name
+#main_content
+  %table.simple_timesheet
+    %tr
+      - TimeEntry::TIMESHEET_FIELDS.each do |n|
+        = content_tag :th, n.humanize
+      %th{:style=>"width:250px;"}
+        Task
+      %th
+        Hours
+    - total_duration = Duration.new
+    - week_total = Duration.new
+    - unless @time_entries.nil?
+      - curr_week = @time_entries[0].week
+      - @time_entries.each do |c|
+        - if c.week != curr_week
+          %tr.subtotal
+            %td{:colspan=>2}
+              Week hours:
+            %td.subtotal
+              = week_total.days_to_hours + week_total.hours + (week_total.minutes.to_f / 60)
+          %tr
+            %td
+              &nbsp;
+          - week_total = Duration.new
+          - curr_week = c.week
+        %tr
+          - TimeEntry::TIMESHEET_FIELDS.each do |f|
+            = format_field(:td, c, f, "")
+          %td
+            = h c.task.name
+          %td
+            = dur = Duration.new(:hours = c.hours[0..1].to_i, :minutes = c.hours[3..4].to_i)
+        - total_duration += dur
+        - week_total += dur
+      %tr.subtotal
+        %td{colspan=>"2"}
+          Week hours:
+        %td.subtotal
+          = week_total.days_to_hours + week_total.hours + (week_total.minutes.to_f / 60)
+      %tr
+        %td
+          &nbsp;
+      %tr.total
+        %td
+          Total
+        %td.subtotal
+          = total_duration.weeks_to_hours + total_duration.days_to_hours + total_duration.hours + (total_duration.minutes.to_f / 60)
+          hours

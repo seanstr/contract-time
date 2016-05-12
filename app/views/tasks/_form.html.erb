@@ -1,0 +1,12 @@
+<%= text_field_for form, "name" %>
+<%= text_field_for form, "description" %>
+<%= text_field_for form, "rate" %>
+<%= date_field_for form, "estimated_start_date" %>
+<%= date_field_for form, "estimated_end_date" %>
+<%= text_field_for form, "estimated_duration" %>
+<%= date_field_for form, "actual_start_date" %>
+<%= date_field_for form, "actual_end_date" %>
+<%= text_field_for form, "actual_duration" %>
+<%= select_field_for form, "project_id", "project", "name", @projects %>
+<%= status_select_field_for form, "status" %>
+<%= checkbox_field_for form, "active" %>

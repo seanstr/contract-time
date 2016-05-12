@@ -1,0 +1,7 @@
+= date_field_for form, "entry_date"
+= time_field_for form, "start_time"
+= time_field_for form, "end_time"
+= select_field_for form, "task_id", "task", "name", @tasks
+= select_field_for form, "consultant_id", "consultant", "name", @consultants
+= text_area_field_for form, "notes"
+= checkbox_field_for form, "active", @checked

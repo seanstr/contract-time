@@ -1,0 +1,16 @@
+%div
+  %legend
+    .actionbar
+      .mb_m
+        .mb_l
+          .mb_r
+            #nav
+              #nav_row
+                = image_tag("red_arrow.jpg")
+                = link_to 'Large', { :controller => :calendar, :action => :index}
+              #nav_row
+                = image_tag("red_arrow.jpg")
+                = link_to 'Medium', { :controller => :calendar, :action => :index}
+              #nav_row
+                = image_tag("red_arrow.jpg")
+                = link_to 'Small', { :controller => :calendar, :action => :small}

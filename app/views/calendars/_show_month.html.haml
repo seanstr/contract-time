@@ -1,0 +1,59 @@
+- week_grid = month
+%table#year
+  %tr
+    %td
+      %table#month
+        %thead
+          %tr
+            %th.monthtitle{colspan: 7}
+              = week_grid[0]
+          %tr
+            - week_names = week_grid[1]
+            - week_names.each_with_index do |d, i|
+              - if i == 0 || i == 6
+                %th.weekend
+                  = d[0] unless d.nil?
+              - else
+                %th
+                  = d[0] unless d.nil?
+        %tbody
+          - week_values = week_grid[2]
+          - week_grid[2..week_grid.size-1].each_with_index do |week_values, week_num|
+            %tr
+              - if week_values.class == Array
+                - week_values.each_with_index do |d, i|
+                  - if i == 0 || i == 6
+                    %td.weekend
+                      %span.date
+                        = d[0] unless d.nil?
+                      %div.day
+                  - else
+                    - if d[1].class == Array
+                      - unless d[1].nil? || d[1] == []
+                        - timeoff = d[1][0]
+                        - if timeoff[:type] == "Vacation"
+                          %td.vacation
+                            - unless d.nil?
+                              %span.date
+                                = d[0]
+                              %span.business-day-reverse
+                                = d[-1]
+                        - elsif timeoff[:type] == "Holiday"
+                          %td.holiday
+                            %span.date
+                              = d[0] unless d.nil?
+                    - else
+                      - if not d[2].nil? && d[2] != []
+                        %td.vacation
+                          %span.date
+                            = d[0] unless d.nil?
+                      - else
+                        %td
+                          - unless d.nil?
+                            %span.date
+                              = d[0]
+                            %span.business-day
+                              = d[-1]
+              - else
+                %td.info{colspan: 7}
+                  = week_values

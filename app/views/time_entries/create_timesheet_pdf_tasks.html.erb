@@ -1,0 +1,56 @@
+<h1><%= @title1 %></h1>
+<h3>Client: <%= @client.name %></h3>
+<h3>Consultant: <%= @consultant.name %></h3>
+
+<% old_task = old_date = nil %>
+<div id="main_content">
+  <table class="timesheet">
+    <tr>
+      <th style="width:200px;">Entry Date</th>
+      <th style="width:400px;">Task</th>
+      <th style="width:70px;">Start</th>
+      <th style="width:70px;">End</th>
+      <th style="width:250px;">Hours</th>
+    </tr>
+    <% task_total = Duration.new %>
+    <% unless @time_entries.nil? %>
+      <% curr_task = old_task = @time_entries[0].task_id %>
+
+      <% @time_entries.each do |c| %>
+        <% if old_task != c.task_id then %>
+          <tr class="subtotal">
+            <td colspan="4">Total hours:</td>
+            <td class="subtotal">
+              <%= task_total.days_to_hours + task_total.hours + (task_total.minutes.to_f / 60) %>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <% task_total = Duration.new %>
+          <% old_task = c.task_id %>
+        <% end %>
+        <tr>
+          <td style="width:200px;"><%= c.entry_date.to_s(:compact_date) %>
+          <td style="width:400px;">
+            <% if c.task == old_task %>
+              &nbsp;
+            <% else %>
+              <%= h c.task.name %>
+            <% end %>
+          </td>
+          <td style="width:70px;"><%= h c.start_time.to_s(:time) %></td>
+          <td style="width:70px;"><%= h c.end_time.to_s(:time) %></td>
+          <td style="width:250px;"><%= dur = Duration.new(:hours => c.hours[0..1].to_i, :minutes => c.hours[3..4].to_i) %></td>
+        </tr>
+        <% task_total += dur %>
+      <% end %>
+      <tr class="subtotal">
+        <td colspan="4">Total hours:</td>
+        <td class="subtotal">
+          <%= task_total.days_to_hours + task_total.hours + (task_total.minutes.to_f / 60) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>
+

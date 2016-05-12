@@ -1,0 +1,8 @@
+<h1><%= @title %></h1>
+
+<div id="main_content">
+  <ul>
+    <%= render :partial => 'invoices/field_row', :collection => invoice_list_items %>
+  </ul>
+</div>
+

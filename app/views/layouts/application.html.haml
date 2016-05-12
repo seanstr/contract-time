@@ -1,0 +1,49 @@
+%html
+  %head
+    %title
+      = @title
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    
+    %link{:rel=>"shortcut icon", :href=>"/assets/logo.ico"}/
+    
+  %body
+    #whole_page
+      .logobar
+        .t
+          .l
+            .r
+              #name_header
+                %img{:alt=>"",:style=>"float: left;",:src=>"/assets/logo1.gif"}
+                %span
+                  ContractTime
+      .menubar
+        .mb_m
+          .mb_l
+            .mb_r
+              #nav
+                #nav_row
+                  %img{:alt=>"",:src=>"/assets/red_arrow.jpg"}
+                  = link_to_unless_current("TIME ENTRY", :id => nil,:action => "list", :controller => "time_entries")
+                #nav_row
+                  %img{:alt=>"",:src=>"/assets/red_arrow.jpg"}
+                  = link_to_unless_current("CALENDAR", :id => nil,:action => "index", :controller => "calendars")
+                #nav_row
+                  %img{:alt=>"",:src=>"/assets/red_arrow.jpg"}
+                  = link_to_unless_current("SETUP", :id => nil,:action => "list", :controller => "projects")
+                #nav_row
+                  - if flash[:notice]
+                    #notice
+                      = flash[:notice]
+                #nav_row
+                  #login
+                    -# if user_logged_in?
+                      =# current_user.login
+                      =# link_to "Log Out", logout_path
+                    -# else
+                      =# link_to "Log In", login_path
+      #user
+      #content
+        = yield
+        %br{:clear=>"all"}

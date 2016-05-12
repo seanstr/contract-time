@@ -1,0 +1,51 @@
+pdf.margins_in 1.2
+
+pdf.select_font "Helvetica-Bold"
+pdf.text "Invoice \##{@invoice_number}", :font_size => 14, :justification => :left
+pdf.text " "
+
+pdf.select_font "Helvetica"
+pdf.text "Invoice Date: #{@invoice_date}", :font_size => 12, :justification => :left
+pdf.text " "
+pdf.text " "
+
+pdf.select_font "Helvetica-Bold"
+pdf.text "Payable to:", :font_size => 12, :justification => :left
+pdf.select_font "Helvetica"
+pdf.text " "
+
+pdf.text @address, :font_size => 12, :justification => :left
+pdf.text " "
+pdf.text "GST #: #{@gst_number}"
+pdf.text " "
+
+pdf.select_font "Helvetica-Bold"
+pdf.text "Consultant:   #{@consultant.name} "
+pdf.text " "
+pdf.text " "
+
+pdf.text "Invoice to:", :font_size => 12, :justification => :left
+pdf.select_font "Helvetica"
+pdf.text " "
+
+pdf.text @invoice_info, :font_size => 12, :justification => :left
+pdf.text " "
+pdf.text " "
+
+# Hack alert.  The @action_view.number_to_currency helper is only easily visible to Views
+t = @action_view.format_currency(@dd, "amount")
+t = @action_view.format_currency(@dd2, "amount")
+t = @action_view.format_currency(@dd3, "amount")
+
+tbl = @action_view.create_invoice_table(pdf, @dd, true, :all)
+pdf.text " "
+pdf.select_font "Helvetica-Bold"
+tbl = @action_view.create_invoice_table(pdf, @dd2, false, :all)
+pdf.text " "
+tbl = @action_view.create_invoice_table(pdf, @dd3, false, :none)
+
+pdf.select_font "Helvetica"
+pdf.text " "
+pdf.text " "
+
+pdf.text "Thank you for your business", :font_size => 10

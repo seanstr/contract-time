@@ -1,0 +1,11 @@
+- form_type = "edit" if form_type.nil?
+- title = "Edit" if title.nil?
+#filter
+  %h1
+    = @title
+  = render :partial => "main_content", :locals => {:form_type => form_type, :title => title}
+  %br
+  #total
+    Total Hours:
+  #total-text
+    = @total_hours

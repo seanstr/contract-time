@@ -1,0 +1,1 @@
+page[:form_div].replace_html(render(:partial => "layouts/generic_add", :locals => {:column_list => TimeEntry::VIEW_FIELDS, :class_name => @time_entries}))

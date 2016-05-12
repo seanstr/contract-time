@@ -1,0 +1,69 @@
+- form_type = "edit" if form_type.nil?
+- title = "Edit" if title.nil?
+
+#filter
+  %h1
+    = @title
+  #main_content
+    %table
+      %tr
+        - TimeEntry::HOUR_VIEW_FIELDS.each do |n|
+          = content_tag :th, /[^\.]*$/.match(n).to_s.humanize, TimeEntry.hour_view_column_sizes(n.to_sym)
+        = content_tag :th, "Hours", {:width=>"60"}
+      - curr_day = @time_entries[0].nil? ? 0 : @time_entries[0].entry_date.day
+      - curr_week = @time_entries[0].nil? ? 0 : @time_entries[0].week
+      - day_total = Duration.new
+      - week_total = Duration.new
+      - @time_entries.each do |c|
+        - if c.entry_date.day != curr_day
+          %tr{:class=>"subtotal"}
+            %td{:class=>"subtotal"}
+            %td{:class=>"subtotal", :colspan=>"3"}
+              &nbsp;&nbsp;&nbsp;&nbsp;Day total:
+            %td{:class=>"subtotal"}
+              = "#{day_total.days_to_hours + day_total.hours + (day_total.minutes.to_f / 60)} hours"
+          - day_total = Duration.new
+          - curr_day = c.entry_date.day
+
+        - if c.week != curr_week
+          %tr{:class=>"subtotal"}
+            %td
+            %td{:colspan=>"3"}
+              Week total:
+            %td{:class=>"subtotal"}
+              = "#{week_total.days_to_hours + week_total.hours + (week_total.minutes.to_f / 60)} hours"
+          %tr
+            %td
+              &nbsp;
+          - week_total = Duration.new
+          - curr_week = c.week
+        - dur = Duration.new(:minutes => c.hours*60) 
+        -#dur = Duration.new(:minutes => (c.hours.hour*60)+c.hours.min)
+        - week_total += dur
+        - day_total += dur
+
+        %tr
+          - TimeEntry::HOUR_VIEW_FIELDS.each do |f|
+            %td
+              = h(fmt(c, f))
+          %td
+            = c.hours
+
+      %tr{:class=>"subtotal"}
+        %td
+        %td{:colspan=>"3"}
+          &nbsp;&nbsp;&nbsp;&nbsp;Day total:
+        %td{:class=>"subtotal"}
+          = "#{day_total.days_to_hours + day_total.hours + (day_total.minutes.to_f / 60)} hours"
+
+      %tr{:class=>"subtotal"}
+        %td
+        %td{:colspan=>"3"}
+          Week total:
+        %td{:class=>"subtotal"}
+          = "#{week_total.days_to_hours + week_total.hours + (week_total.minutes.to_f / 60)} hours"
+%br
+#total
+  Total Hours:
+#total-text
+  = @total_hours

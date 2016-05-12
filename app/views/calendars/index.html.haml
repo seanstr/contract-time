@@ -1,0 +1,5 @@
+= render partial: "layouts/actionbar_calendar"
+%div
+  %table#year
+    - @calendar_grid.each do |month|
+      = render partial: "show_month", locals: {month: month, size: :large}

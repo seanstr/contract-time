@@ -1,0 +1,69 @@
+<h1>Invoice #<%= @invoice_number %></h1>
+<br/>
+<span class="invoice_text_header">Invoice Date: </span><span class="invoice_text"><%= @invoice_date %></span>
+<br/>
+<br/>
+<span class="invoice_text_header">Payable to:</span>
+<br/>
+<% @address.each do |i| %>
+	<span class="invoice_text">
+		<%= i %><br/>
+	</span>
+<% end %>
+
+<br/>
+<span class="invoice_text_header">Consultant: </span>
+<br/>
+<span class="invoice_text"><%= @consultant.name %></span>
+<br/>
+<br/>
+<span class="invoice_text_header">Invoice to:</span>
+<br/>
+<% @invoice_info.each do |i| %>
+	<span class="invoice_text">
+		<%= i %><br/>
+	</span>
+<% end %>
+<br/>
+<br/>
+<table class="invoice">
+	<tr class="grid">
+		<th class="col-1">Project/task</th>
+		<th class="col-2">Hours</th>
+		<th class="col-3">Rate</th>
+		<th class="col-4">Amount</th>
+	</tr>
+	<% @data_array.each do |d| %>
+		<tr class="grid">
+			<td class="col-1 grid"><%=h d.attributes["project/task"] %></td>
+			<td class="col-2 grid"><%=h d.hours %></td>
+			<td class="col-3 grid"><%=h number_to_currency(d.rate) %></td>
+			<td class="col-4 grid"><%=h number_to_currency(d.amount) %></td>
+		</tr>
+	<% end %>
+	<tr class="blank">
+		<td colspan="4">&nbsp;</td>
+	</tr>
+	<tr class="subtotal">
+		<td>Subtotal</td>
+		<td class="col-2"><%=h @total_hrs %></td>
+		<td class="col-3"></td>
+		<td class="col-4"><%=h number_to_currency(@total_amount) %></td>
+	</tr>
+	<tr class="subtotal">
+		<td colspan="2">GST:</td>
+		<td class="col-3"></td>
+		<td class="col-4"><%= number_to_currency(@gst_amount) %></td>
+	</tr>
+	<tr class="blank">
+		<td colspan="4">&nbsp;</td>
+	</tr>
+	<tr class="total">
+		<td colspan="3">Total:</td>
+		<td class="col-4"><%= number_to_currency(@total_amount + @gst_amount) %></td>
+	</tr>
+</table>
+<br/>
+<span class="invoice_text">
+	Thank you for your business
+</span>

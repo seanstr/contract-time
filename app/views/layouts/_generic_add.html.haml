@@ -1,0 +1,26 @@
+- legend = "Enter Details" if legend.nil?
+- prompt = "Add" if prompt.nil?
+- display_list = true if display_list.nil?
+- title = "Add" if title.nil?
+- add_another = false if add_another.nil?
+- form_type = "add" if form_type.nil?
+- form_name = "form" if form_name.nil?
+
+%legend
+  .popupbar
+    .mb_m
+      %h1
+        = title
+#form_wrap
+  = form_for :class_name, :url => { :action => form_type=="edit" ? "edit" : form_type } do |form|
+    %fieldset
+      %legend
+        = legend
+      / error_messages_for 'class_name'
+      = render :partial => form_name, :locals => {:form => form}
+      #form_row
+        = submit_tag(form_type=="edit" ? "Save Changes" : prompt, :class => "submit")
+  - if display_list
+    = link_to "List", :action => :list
+  = link_to_function("Cancel", "$('#form_hash_div').toggle(false);$('#form_div').toggle(false);")
+  

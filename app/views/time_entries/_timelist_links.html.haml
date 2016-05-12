@@ -1,0 +1,35 @@
+- end_day = Date.today.end_of_month
+- start_day = Date.today.beginning_of_month
+- parms = {:consultant_id=>"1", "to_date(3i)"=>end_day.day.to_s, "from_date(1i)"=>start_day.year.to_s, "from_date(2i)"=>start_day.month.to_s, "from_date(3i)"=>start_day.day.to_s, "to_date(1i)"=>end_day.year.to_s, "to_date(2i)"=>end_day.month.to_s}
+
+%legend
+  .timesheet_links
+    .timelist_links_m
+      .timelist_links_l
+        .timelist_links_r
+          #timelist
+            #timelist_row
+              = link_to_unless_current "Timesheet List View", :action => :list, :commit=>"Submit", :submit => true, :class_name=>parms
+  .timesheet_links
+    .timelist_links_m
+      .timelist_links_l
+        .timelist_links_r
+          #timelist
+            #timelist_row
+              = link_to_unless_current "Timesheet Hours View", :action => :timesheet_hours, :commit=>"Submit", :submit => true, :class_name=>parms
+  .timesheet_links
+    .timelist_links_m
+      .timelist_links_l
+        .timelist_links_r
+          #timelist
+            #timelist_row
+              = link_to_unless_current 'Timesheet for this month', :action => :timesheet, :commit=>"Submit", :submit => true, :class_name=>parms
+  .timesheet_links
+    .timelist_links_m
+      .timelist_links_l
+        .timelist_links_r
+          #timelist
+            #timelist_row
+              = link_to_unless_current "Replicon Integration View", :action => :timesheet_hours, :commit=>"Submit", :submit => true, :class_name=>parms
+%br
+%br

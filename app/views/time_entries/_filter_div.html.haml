@@ -1,0 +1,22 @@
+- list_type = "filter" if list_type.nil?
+%div{:style=>"width: 100%; clear: both; padding: 0;"}
+  = form_for :filter_form, :html => { :id => 'filter_form', :style => "width: 100%; padding: 0; margin: 0;", "data-remote" => "true", :method => "put" } do |form|
+    %fieldset
+      .month_select_m
+        .month_select_l
+          .month_select_r
+            %div{:style=>"width: 100%; clear: both; padding: 10px 0 0 0px; color: #dfdfdf;"}
+              = select_field_for form, "consultant_id", "consultant", "name", @consultants
+              %div{:style=>"width: 100%; clear: both; padding: 0px 0 0 20px; "}
+                %table
+                  %tr
+                    - (0..6).each do |month|
+                      %td{:style=>"color: #dfdfdf;"}
+                        = radio_button("view", "month", ((Date.today<<(month)).strftime("%m %Y")), month==0 ? {:checked => 'checked',} : {} )
+                        = (Date.today<<(month)).strftime("%b %Y")
+                  %tr
+                    %td{:style=>"color: #dfdfdf;"}
+                    - (7..12).each do |month|
+                      %td{:style=>"color: #dfdfdf;"}
+                        = radio_button("view", "month", ((Date.today<<(month)).strftime("%m %Y")))
+                        = (Date.today<<(month)).strftime("%b %Y")

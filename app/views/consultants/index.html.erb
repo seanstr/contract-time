@@ -1,0 +1,7 @@
+<h1><%= @title %></h1>
+
+<div id="main_content">
+  <ul>
+    <%= render :partial => 'consultants/field_row', :collection => Consultant::VIEW_FIELDS %>
+  </ul>
+</div>

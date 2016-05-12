@@ -1,0 +1,10 @@
+<%= select_field_for form, "client_id", "client", "name", @clients %>
+<%= date_field_for form, "start_date", :default => @beginning_of_month %>
+<%= date_field_for form, "end_date", :default => @end_of_month %>
+<%= date_field_for form, "date_sent" %>
+<%= date_field_for form, "date_paid" %>
+<%= text_field_for form, "hours" %>
+<%= text_field_for form, "amount" %>
+<%= text_field_for form, "gst" %>
+<%= select_field_for form, "company_id", "company", "name", @companies %>
+<%= select_field_for form, "consultant_id", "consultant", "name", @consultants %>

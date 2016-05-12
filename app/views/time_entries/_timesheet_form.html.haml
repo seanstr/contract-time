@@ -1,0 +1,6 @@
+= select_field_for form, "consultant_id", "consultant", "name", @consultants
+= select_field_for form, "client_id", "client", "name", @clients
+%span{:style=>"display:none;"}
+  = date_field_for form, "test", :default => Date.new(2008,1,1)
+= date_field_for form, "from_date", :default => @beginning_of_month
+= date_field_for form, "to_date", :default => @end_of_month

@@ -1,0 +1,2 @@
+<%= render :partial => "layouts/generic_list", :locals => {:column_list => list_fields, :class_name => @clients}  %>
+

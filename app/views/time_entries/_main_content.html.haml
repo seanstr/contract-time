@@ -1,0 +1,82 @@
+#main_content
+  = form_tag({action: "send_array_to_replicon"}, method: :get) do
+    %table{class: "timesheet"}
+      %tr
+        %td{colspan: 8, width: "100%"}
+          %table{width: "100%"}
+            %tr
+              %th{class: "entry_date"} Entry date
+              %th{class: "start_time"} Start time
+              %th{class: "end_time"} End time
+              %th{class: "duration"} Duration
+              %th{class: "task_name"} Task name
+              %th{class: "notes"} Notes
+              %th{class: "edit"} &nbsp;
+              %th{class: "edit"} &nbsp;
+              %th{class: "delete"} &nbsp;
+              %th{class: "delete"} &nbsp;
+              %th{style: "font-size: 8pt;"}
+                = link_to("Select All", "#", {onclick: "$('[id=time_entry_ids_]').map(function () { return this.checked=true;});"})
+                %br
+                = submit_tag('Replicon', {style: "width: 6em; height: 1.8em; font-size: 8px;"})
+
+      - curr_day = @time_entries[0].nil? ? 0 : @time_entries[0].entry_date
+      - curr_week = @time_entries[0].nil? ? 0 : @time_entries[0].week
+      - day_total = Duration.new
+      - week_total = Duration.new
+      - @time_entries.each do |c|
+        - if c.entry_date != curr_day
+          %tr{class: "subtotal"}
+            %td{class: "subtotal"}
+            %td{class: "subtotal", colspan: "2"}
+              &nbsp;Day total:
+            %td{class: "subtotal"}
+              = "#{day_total.days_to_hours + day_total.hours + (day_total.minutes.to_f / 60)} hours"
+            %td{class: "subtotal", colspan: "10"}
+          - day_total = Duration.new
+          - curr_day = c.entry_date
+        - if c.week != curr_week
+          %tr{class: "subtotal"}
+            %td
+            %td{colspan: "2"}
+              Week total:
+            %td{class: "subtotal"}
+              = "#{week_total.days_to_hours + week_total.hours + (week_total.minutes.to_f / 60)} hours"
+          %tr
+            %td
+              &nbsp;
+          - week_total = Duration.new
+          - curr_week = c.week
+        %tr
+          %td{colspan: 8, width: "100%"}
+            %table{width: "100%"}
+              %tr
+                - TimeEntry::VIEW_FIELDS.each do |f|
+                  %td{class: f}
+                    = h(fmt(c, f))
+                %td{class: "edit"}
+                  = link_to("edit", action: :edit, id:  c.id)
+                %td{class: "delete"}
+                  = link_to("delete", {action: "delete", id: c.id}, confirm: "Are you sure you want to delete?", method: :delete)
+                %td
+                  - if c.replicon_id.nil?
+                    = link_to("replicon", {action: "send_single_to_replicon", id: c.id}, method: :get)
+                  - else
+                    = "replicon"
+                %td{class: "delete"}
+                  = check_box_tag("time_entry_ids[]", c.id) if c.replicon_id.nil?
+        - day_total += c.duration
+        - week_total += c.duration
+      %tr{class: "subtotal"}
+        %td{class: "subtotal"}
+        %td{class: "subtotal", colspan: "2"}
+          &nbsp;Day total:
+        %td{class: "subtotal"}
+          = "#{day_total.days_to_hours + day_total.hours + (day_total.minutes.to_f / 60)} hours"
+        %td{class: "subtotal", colspan: "10"}
+      %tr{class: "subtotal"}
+        %td
+        %td{colspan: "2"}
+          Week total:
+        %td{class: "subtotal"}
+          = "#{week_total.days_to_hours + week_total.hours + (week_total.minutes.to_f / 60)} hours"

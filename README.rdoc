@@ -1,0 +1,22 @@
+==ContractTime
+
+This RubyOnRails application is meant to showcase RonR code.
+
+I still use this application to track my time and generate invoices, but much of it has been sadly neglected.  The authentication/authorization is half done, the controllers (especially the time_entries and invoices) are horribly heavy, and most of the code needs to be refactored and/or moved to the models.  The UI is seriously dated as well.
+
+Having said that, I like the way time can be entered. You can type in something like this:
+
+July 1, 2016
+ 9-10, #prj1, Completed task
+ -12, #prj2, Meeting
+
+July 2, 2016
+  .
+  .
+  .
+ 
+The app can parse the times, translate the hashtag and create a normal time entry.  It understands that indented lines are time ranges for the date entered above, and if the line starts with a '-' then take the end time of the previous line.  This resulted in very little time spent entering the data. I tend to track my time in EverNote, then weekly update the time in ContractTime.
+
+The other nice thing is that it integrated with a client's timesheet system, in this case Replicon.  Time goes in, select the items that you want transferred to Replicon, and hit the button.  It made reconciling the numbers very easy.
+
+Lastly, it outputs invoices to PDF in a couple of different styles.

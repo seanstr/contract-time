@@ -1,0 +1,13 @@
+<h1><%= @title %></h1>
+
+<div id="main_content">
+  <ul>
+    <%= render :partial => 'time_entries/field_row', :collection => TimeEntry::VIEW_FIELDS %>
+  </ul>
+</div>
+
+<%= link_to "List", :action => :list %>
+<%= link_to "Add new", :action => :add %>
+<%= link_to "Edit", :action => :edit, :id => @time_entry %>
+
+  

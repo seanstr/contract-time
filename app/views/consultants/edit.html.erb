@@ -1,0 +1,12 @@
+<% form_for :consultant do |form| %>
+  <fieldset>
+    <legend><%= @title %></legend>
+    <%= error_messages_for 'consultant' %>
+
+    <br/>
+  
+    <%= render :partial => "form", :locals => {:form => form}  %>
+  
+    <%= submit_tag "Update", :class => "submit" %>
+  </fieldset>
+<% end %>

@@ -1,0 +1,9 @@
+%legend
+	.actionbar
+		.mb_m
+			.mb_l
+				.mb_r
+					#nav
+						#nav_row
+							= image_tag("red_arrow.jpg")
+							= link_to_remote "Add New", :with => "'is_visible=' + Element.visible('form_div')",	:complete => "Element.show('form_div')", :url => { :action => 'one_action' }

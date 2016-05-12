@@ -1,0 +1,10 @@
+= wicked_pdf_stylesheet_link_tag "calendar"
+%table#year
+  %tr
+    %th.yeartitle{colspan: 3}
+      = @year
+  - [0,3,6,9].each do |row|
+    %tr
+    - @calendar_grid[row+0..row+2].each do |month|
+      %td
+        = render partial: "show_month.html.haml", locals: {month: month, size: :small}

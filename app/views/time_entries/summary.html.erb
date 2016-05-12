@@ -1,0 +1,22 @@
+<h1><%= @title %></h1>
+<div id="form_content">
+  <% form_for :class_name, :url => { :action => "retrieve_summaries" } do |form| %>
+    <fieldset>
+      <legend>Enter Parameters</legend>
+      <%= error_messages_for 'class_name' %>
+      <%= check_box form, "company_filter" %>
+      <%= select_field_for form, "company_id", "company", "name", @companies %>
+      <%= check_box form, "client_filter" %>
+      <%= select_field_for form, "client_id", "client", "name", @clients %>
+      <%= check_box form, "company_filter" %>
+      <%= select_field_for form, "consultant_id", "consultant", "name", @consultants %>
+      <span style="display:none;"><%= date_field_for form, "test", :default => Date.new(2008,1,1) %></span>
+
+      <%= date_field_for form, "from_date", :default => @from_date %>
+      <%= date_field_for form, "to_date", :default => @to_date %>
+      <div class="form_row">
+        <%= submit_tag("Submit", :class => "submit") %>
+      </div>
+    </fieldset>
+  <% end %>
+</div>

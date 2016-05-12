@@ -1,0 +1,22 @@
+= render partial: "layouts/actionbar_calendar"
+= link_to "PDF Version", action: :small, format: :pdf
+%table#year
+  %tr
+    %th.yeartitle{colspan: 3}
+      = @year
+  %tr
+    - @calendar_grid[0..2].each do |month|
+      %td
+        = render partial: "show_month", locals: {month: month, size: :small}
+  %tr
+    - @calendar_grid[3..5].each do |month|
+      %td
+        = render partial: "show_month", locals: {month: month, size: :small}
+  %tr
+    - @calendar_grid[6..8].each do |month|
+      %td
+        = render partial: "show_month", locals: {month: month, size: :small}
+  %tr
+    - @calendar_grid[9..11].each do |month|
+      %td
+        = render partial: "show_month", locals: {month: month, size: :small}

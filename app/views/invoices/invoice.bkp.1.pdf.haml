@@ -1,0 +1,76 @@
+= wicked_pdf_stylesheet_link_tag "invoice"
+%h1
+  Invoice #
+  = @invoice_number
+.invoice_text_header
+  Invoice Date:
+.invoice_text
+  = @invoice_date
+.invoice_text_header
+  Payable to:
+- @address.each do |i|
+  .invoice_text
+    = i
+.gst_text
+  GST #:
+  = @gst_number
+.invoice_text_header
+  Consultant:
+.invoice_text
+  = @consultant.name
+.invoice_text_header
+  Invoice to:
+- @invoice_info.each do |i|
+  .invoice_text
+    = i
+.invoice_text_header
+%table.invoice
+  %tr{:class=>"grid"}
+    %th{:class=>"col-1"}
+      Project/task
+    %th{:class=>"col-2"}
+      &nbsp;
+    %th{:class=>"col-3"}
+      &nbsp;
+    %th{:class=>"col-4"}
+      Amount
+  - @data_array.each do |d|
+    %tr{:class=>"grid"}
+      %td{:class=>"col-1"}
+        = d.attributes["project/task"]
+      %td{:class=>"col-2"}
+        &nbsp;
+      %td{:class=>"col-3"}
+        &nbsp;
+      %td{:class=>"col-4"}
+        = number_to_currency(d.amount)
+  %tr
+    %td
+      &nbsp;
+  %tr.subtotal
+    %td{:class=>"col-1"}
+    %td{:class=>"col-2"}
+      &nbsp;
+    %td{:class=>"col-3"}
+    %td{:class=>"col-4"}
+      = number_to_currency(@total_amount)
+  %tr.subtotal
+    %td{:class=>"col-1"}
+    %td{:class=>"col-2"}
+    %td{:class=>"col-3"}
+      GST:
+    %td{:class=>"col-4"}
+      = number_to_currency(@gst_amount)
+  %tr{:class=>"subtotal"}
+    %td{:colspan=>"4"}
+      &nbsp;
+  %tr{:class=>"total"}
+    %td{:class=>"col-1"}
+    %td{:class=>"col-2"}
+    %td{:class=>"col-3"}
+      Total:
+    %td{:class=>"col-4"}
+      = number_to_currency(@total_amount + @gst_amount)
+.invoice_text_header
+.invoice_text
+  Thank you for your business

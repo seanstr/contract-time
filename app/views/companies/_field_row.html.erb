@@ -1,0 +1,10 @@
+<li>
+  <span class="label"><%= field_row.humanize %>:</span>
+  <span>
+    <% if @company[field_row].nil? %>
+      <%= h @company.addresses.first[field_row] %>
+    <% else %>
+      <%= h @company[field_row] %>
+    <% end %>
+  </span>
+</li>

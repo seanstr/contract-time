@@ -1,0 +1,25 @@
+%legend
+	.actionbar
+		.mb_m
+			.mb_l
+				.mb_r
+					#nav
+						#nav_row
+							= current_page?(:controller => :companies, :action => :list) ? image_tag("white_arrow.jpg") : image_tag("red_arrow.jpg")
+							= link_to_unless_current "Companies", :controller => :companies, :action => :list
+						#nav_row
+							= current_page?(:controller => :consultants, :action => :list) ? image_tag("white_arrow.jpg") : image_tag("red_arrow.jpg")
+							= link_to_unless_current "Consultants", :controller => :consultants, :action => :list
+						#nav_row
+							= current_page?(:controller => :clients, :action => :list) ? image_tag("white_arrow.jpg") : image_tag("red_arrow.jpg")
+							= link_to_unless_current "Clients", :controller => :clients, :action => :list
+						#nav_row
+							= current_page?(:controller => :projects, :action => :list) ? image_tag("white_arrow.jpg") : image_tag("red_arrow.jpg")
+							= link_to_unless_current "Projects", :controller => :projects, :action => :list
+						#nav_row
+							= current_page?(:controller => :tasks, :action => :list) ? image_tag("white_arrow.jpg") : image_tag("red_arrow.jpg")
+							= link_to_unless_current "Tasks", :controller => :tasks, :action => :list
+						#nav_row
+							= current_page?(:controller => :users, :action => :list) ? image_tag("white_arrow.jpg") : image_tag("red_arrow.jpg")
+							= link_to_unless_current "Users", :controller => :users, :action => :list
+

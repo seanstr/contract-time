@@ -1,0 +1,4 @@
+<li>
+  <span class="label"><%= /[^\.]*$/.match(field_row).to_s.humanize %>:</span>
+  <span><%= h @invoice.instance_eval(field_row) %></span>
+</li>

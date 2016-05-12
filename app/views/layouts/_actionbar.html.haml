@@ -1,0 +1,21 @@
+%legend
+	.actionbar
+		.mb_m
+			.mb_l
+				.mb_r
+					#nav
+						#nav_row
+							= image_tag("red_arrow.jpg")
+							= link_to 'Add New', { :controller => :time_entries, :action => :add}, :id => 'add-button', :remote => true
+						#nav_row
+							= image_tag("red_arrow.jpg")
+							= link_to 'Add Hash Text', { :controller => :time_entries, :action => :add_hash_text}, :id => 'add-hash-button', :remote => true
+						#nav_row
+							= image_tag("red_arrow.jpg")
+							= link_to_unless_current "Time Entries", :controller => :time_entries, :action => :list
+						#nav_row
+							= image_tag("red_arrow.jpg")
+							= link_to_unless_current "TimeSheet", :controller => :time_entries, :action => :timesheet
+						#nav_row
+							= image_tag("red_arrow.jpg")
+							= link_to_unless_current "Invoices", :controller => :invoices, :action => :list

@@ -1,0 +1,8 @@
+= render :partial => "layouts/actionbar"
+= render :partial => "filter_div", :locals => {:list_type => "filter"}
+= render :partial => "timelist_links"
+= render :partial => "filter_month", :locals => {:form_type => "edit", :title => "Edit"}
+#form_div{:style=>"float: right; position: absolute; top: 350px; left: 250px; width: 630px; height: 400px; display: none;" }
+  = render :partial => "layouts/generic_add", :locals => {:form_type => "add", :title =>"Add Time Entry", :display_list => false}
+#form_hash_div{:style=>"float: right; position: absolute; top: 350px; left: 250px; width: 630px; height: 400px; display: none;" }
+  = render :partial => "layouts/generic_add", :locals => {:form_type => "hash_form", :form_name => "hash_form", :title =>"Time Hash Entry", :display_list => false}

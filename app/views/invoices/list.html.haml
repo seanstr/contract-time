@@ -1,0 +1,28 @@
+= render :partial => "layouts/actionbar"
+%h1
+	= @title
+
+%table
+	%tr
+		- invoice_list_items.each do |item|
+			= header_tag(item)
+		= header_tag("amount")
+		= header_tag("gst")
+		= header_tag("total")
+
+	- @invoices.each do |t|
+		%tr
+			- invoice_list_items.each do |item|
+				= format_field(:td, t, item, "")
+			= content_tag(:td, number_to_currency(t.amount))
+			= content_tag(:td, number_to_currency(t.gst))
+			= content_tag(:td, number_to_currency(t.amount + t.gst))
+
+			= content_tag(:td, link_to("generate invoice screen", :action => "invoice", :start_date => t.start_date, :end_date => t.end_date, :invoice_number => t.invoice_number, :consultant_id => t.consultant_id, :company_id => t.company_id, :invoice_date => t.date_sent, :client_id => t.client_id))
+			= content_tag(:td, link_to("generate invoice PDF", :action => "invoice.pdf", :start_date => t.start_date, :end_date => t.end_date, :invoice_number => t.invoice_number, :consultant_id => t.consultant_id, :company_id => t.company_id, :invoice_date => t.date_sent, :client_id => t.client_id))
+
+			= content_tag(:td, link_to("edit", :action => :edit, :id => t.id))
+			= content_tag(:td, link_to("delete", :action => :delete, :id => t.id))
+
+#form_div{:style=>"float: right; position: absolute; top: 300px; left: 250px; width: 630px; height: 400px; display: none;" }
+	= render :partial => "layouts/generic_add", :locals => {:form_type => "add", :title =>"Add Invoice", :display_list => false}

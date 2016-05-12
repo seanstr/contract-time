@@ -1,0 +1,6 @@
+#form_content
+  - form_for :class_name, :url => { :action => @action } do |form|
+    %fieldset
+    = render :partial => "timesheet_form", :locals => {:form => form}
+    .form_row
+      = submit_tag("Submit", :class => "submit")
